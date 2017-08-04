@@ -1,18 +1,24 @@
 #!groovy
 
 job('Beachfront Seed') {
+    triggers {
+      upstream('example-1', 'UNSTBLE')
+    }
     steps {
         dsl {
-            external('jobs/_includeseed/Beachfront.groovy')
+            external('jobs/example-1/Beachfront.groovy')
             removeAction('DISABLE')
         }
     }
 }
 
 job('Piazza Seed') {
+    triggers {
+      upstream('example-1', 'UNSTBLE')
+    }
     steps {
         dsl {
-            external('jobs/_includeseed/Piazza.groovy')
+            external('jobs/example-1/Piazza.groovy')
             removeAction('DISABLE')
         }
     }
