@@ -2,7 +2,7 @@
 
 job('Beachfront Seed') {
     triggers {
-      upstream('example-1', 'UNSTBLE')
+      upstream('example-1', 'UNSTABLE')
     }
     steps {
         dsl {
