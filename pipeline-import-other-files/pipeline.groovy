@@ -8,7 +8,7 @@ import static Piazza.pzcredsparams
 println pzparams
 println pzprojects
 println pzcredsparams
-def foldername = 'yorkshire'
+def foldername = 'hosmer-snowflakes/yorkshire'
 def root = hudson.model.Executor.currentExecutor().getCurrentWorkspace()
 //evaluate(new File("${root}/beachfront.properties"))
 //evaluate(new File("${root}/piazza.properties"))
