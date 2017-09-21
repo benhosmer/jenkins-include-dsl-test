@@ -1,13 +1,10 @@
 #!groovy
 
 import groovy.io.FileType
-import static Piazza.pzprojects
-import static Piazza.pzparams
-import static Piazza.pzcredsparams
 
-println pzparams
-println pzprojects
-println pzcredsparams
+println Piazza.pzparams
+println Piazza.pzprojects
+println Piazza.pzcredsparams
 def foldername = 'hosmer-snowflakes/yorkshire'
 def root = hudson.model.Executor.currentExecutor().getCurrentWorkspace()
 //evaluate(new File("${root}/beachfront.properties"))
@@ -19,7 +16,7 @@ folder("${foldername}/piazza") {
 
 def gitprefix = 'https://github.com/venicegeo/'
 
-for(project in pzprojects) {
+for(project in Piazza.pzprojects) {
   pipelineJob("${foldername}/piazza/${project.name}-pipeline") {
     description("Piazza pipeline")
     triggers {
@@ -41,10 +38,10 @@ for(project in pzprojects) {
       }
     }
     parameters {
-      for(param in pzparams) {
+      for(param in Piazza.pzparams) {
         "${param.type}"("${param.name}", "${param.defaultVaue}", "${param.description}")
       }
-      for(credsparam in pzcredsparams) {
+      for(credsparam in Piazza.pzcredsparams) {
         "${credsparam.type}"("${credsparam.name}") {
           defaultValue("${credsparam.defaultValue}")
           description("${credsparam.description}")
