@@ -8,7 +8,7 @@ def root = hudson.model.Executor.currentExecutor().getCurrentWorkspace()
 //evaluate(new File("${root}/piazza.properties"))
 
 def piazza = readFileFromWorkspace('Piazza.groovy')
-println piazza
+println piazza.projects
 
 folder("${foldername}/piazza") {
   displayName("piazza")
