@@ -4,8 +4,8 @@ import groovy.io.FileType
 
 def foldername = 'hosmer-snowflakes/yorkshire'
 def root = hudson.model.Executor.currentExecutor().getCurrentWorkspace()
-evaluate(new File("${root}/beachfront.properties"))
-evaluate(new File("${root}/piazza.properties"))
+//evaluate(new File("${root}/beachfront.properties"))
+//evaluate(new File("${root}/piazza.properties"))
 
 def datas = readYaml file: 'my.yml'
 println datas
