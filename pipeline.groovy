@@ -1,9 +1,7 @@
 #!groovy
 
 import groovy.io.FileType
-import Piazza.pzparams
-import Piazza.pzprojects
-import Piazza.pzcredsparams
+import Piazza
 
 println Piazza.pzparams
 println Piazza.pzprojects
