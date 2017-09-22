@@ -7,8 +7,8 @@ def root = hudson.model.Executor.currentExecutor().getCurrentWorkspace()
 //evaluate(new File("${root}/beachfront.properties"))
 //evaluate(new File("${root}/piazza.properties"))
 
-def piazza = readFileFromWorkspace('Piazza.groovy')
-println piazza.projects
+def jsonSlurper = new groovy.json.JsonSlurper()
+def piazza = jsonSlurper.parseText(readFileFromWorkspace('Piazza.json'))
 
 folder("${foldername}/piazza") {
   displayName("piazza")
