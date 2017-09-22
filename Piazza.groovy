@@ -1,3 +1,5 @@
+#!groovy
+
 class Piazza {
   static pzprojects = [
     [
