@@ -2,9 +2,12 @@
 
 def foldername = 'hosmer-snowflakes/yorkshire'
 
-String piazzaprops = readFileFromWorkspace("piazza.properties")
-piazzaconfigs = new ConfigSlurper().parse( piazzaprops )
-println piazzaconfigs.pzprojects
+String piazzaprops = readFileFromWorkspace("piazza.json")
+
+def slurper = new groovy.json.JsonSlurper()
+def result = slurper.parseText(piazzaprops)
+
+println result
 
 folder("${foldername}/piazza") {
   displayName("piazza")
