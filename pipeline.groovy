@@ -1,35 +1,29 @@
 #!groovy
 
-def foldername = 'hosmer-snowflakes/yorkshire'
-
-String piazzaprops = readFileFromWorkspace("piazza.json")
+String configfile = readFileFromWorkspace("venice.json")
 
 def slurper = new groovy.json.JsonSlurper()
-def result = slurper.parseText(piazzaprops)
-
-println result
-
-folder("${foldername}/piazza") {
-  displayName("piazza")
-}
-
+def veniceprojects = slurper.parseText(configfile)
 def gitprefix = 'https://github.com/venicegeo/'
 
-for(project in piazzaconfigs.pzprojects) {
-  pipelineJob("${foldername}/piazza/${project.name}-pipeline") {
-    description("Piazza pipeline")
+for (project in veniceprojects.projects) {
+  folder("venice/${project.foldername}") {
+    displayName("${project.foldername} pipelines")
+  }
+  pipelineJob("venice/${project.foldername}/${project.repos.name}-pipeline") {
+    description("${project.repos.name} pipeline")
     triggers {
       gitHubPushTrigger()
     }
     environmentVariables {
-      env('THREADFIX_ID', project.threadfixId)
+      env('THREADFIX_ID', "${project.repos.threadfixId}")
     }
     definition {
       cpsScm {
         scm {
           git {
             remote {
-              url("${gitprefix}${project.name}")
+              url("${gitprefix}${project.repos.name}")
               branch("*/master")
             }
           }
@@ -37,13 +31,14 @@ for(project in piazzaconfigs.pzprojects) {
       }
     }
     parameters {
-      for(param in piazzaconfigs.pzparams) {
-        "${param.type}"("${param.name}", "${param.defaultVaue}", "${param.description}")
+      for(param in project.jobparams) {
+        "${param.type}"("\"${param.name}\"", "\"${param.defaultvalue}\"", "\"${param.description}\"")
       }
-      for(credsparam in piazzaconfigs.pzcredsparams) {
-        "${credsparam.type}"("${credsparam.name}") {
-          defaultValue("${credsparam.defaultValue}")
-          description("${credsparam.description}")
+      for(credparam in project.credparams) {
+println credparam
+        credentialsParam("\"${credparam.name}\"") {
+          defaultValue("\"${credparam.defaultValue}\"")
+          description("\"${credparam.description}\"")
         }
       }
     }

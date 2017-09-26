@@ -1,88 +1,41 @@
 {
-	"piazza": {
-		"pz-projects": {
-			"pz-idam": [
-				{
-					"threadfixid": 123
-				},
-				{
-					"othervalue": "abc"
-				}
-			],
-			"pz-jobcommon": [
-				{
-					"threadfixid": 456
-				},
-				{
-					"othervalue": "def"
-				}
-			],
-			"pz-params": [
-				{
-					"type": [
-						"stringParam"
-					]
-				},
-				{
-					"value": [
-						"https://google.com"
-					]
-				},
-				{
-					"description": [
-						"Threadfix URL"
-					]
-				}
-			],
-			"pz-credsparams": [
-				{
-					"name": "boppity"
-				},
-				{
-					"defaultvalue": "SOMECRED"
-				},
-				{
-					"description": "Some description here"
-				}
-			]
+	"projects": [{
+			"foldername": "piazza",
+			"credparams": [{
+				"name": "GITLAB_CREDS",
+				"defaultvalue": "NOUSERPASS",
+				"description": "Gitlab access credentials"
+			}],
+			"jobparams": [{
+                                "type":"stringParam",
+				"name": "ARTIFACT_UPLOAD_URL",
+				"defaultvalue": "https://nexus.blah",
+				"description": "Nexus url"
+			}],
+			"repos": [{
+				"name": "pz-idam",
+				"threadfixId": "5",
+				"url": "https://github.com/venicegeo/pz-idam"
+			}]
 		},
-		"bf-projects": {
-			"bf-ui": [
-				{
-					"threadfixid": 678
-				},
-				{
-					"othervalue": 901
-				}
-			],
-			"bf-params": [
-				{
-					"type": [
-						"stringParam"
-					]
-				},
-				{
-					"value": [
-						"https://google.com"
-					]
-				},
-				{
-					"description": [
-						"Threadfix URL"
-					]
-				}
-			],
-			"bf-credsparams": [
-				{
-					"name": "bippity"
-				},
-				{
-					"defaultvalue": "OTHERCRED"
-				},
-				{
-					"description": "Other desc here"
-				}
-			]
+		{
+			"foldername": "beachfront",
+			"credparams": [{
+				"name": "GITLAB_CREDS",
+				"defaultvalue": "NOUSERPASS",
+				"description": "Gitlab access credentials"
+			}],
+			"jobparams": [{
+                                "type": "stringParam",
+				"name": "ARTIFACT_UPLOAD_URL",
+				"defaultvalue": "https://nexus.blah",
+				"description": "Nexus url"
+			}],
+			"repos": [{
+				"name": "bf-ui",
+				"threadfixId": "2",
+				"url": "https://github.com/venicegeo/bf-ui"
+			}]
 		}
-	}
+	]
 }
