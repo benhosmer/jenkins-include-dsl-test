@@ -10,35 +10,37 @@ for (project in veniceprojects.projects) {
   folder("venice/${project.foldername}") {
     displayName("${project.foldername} pipelines")
   }
-  pipelineJob("venice/${project.foldername}/${project.repos.name}-pipeline") {
-    description("${project.repos.name} pipeline")
-    triggers {
-      gitHubPushTrigger()
-    }
-    environmentVariables {
-      env('THREADFIX_ID', "${project.repos.threadfixId}")
-    }
-    definition {
-      cpsScm {
-        scm {
-          git {
-            remote {
-              url("${gitprefix}${project.repos.name}")
-              branch("*/master")
+  for (repo in project.repos) {
+    pipelineJob("venice/${project.foldername}/${project.repos.name}-pipeline") {
+      description("${project.repos.name} pipeline")
+      triggers {
+        gitHubPushTrigger()
+      }
+      environmentVariables {
+        env('THREADFIX_ID', "${project.repos.threadfixId}")
+      }
+      definition {
+        cpsScm {
+          scm {
+            git {
+              remote {
+                url("${gitprefix}${project.repos.name}")
+                branch("*/master")
+              }
             }
           }
         }
       }
-    }
-    parameters {
-      for(param in project.jobparams) {
-        "${param.type}"("\"${param.name}\"", "\"${param.defaultvalue}\"", "\"${param.description}\"")
-      }
-      for(credparam in project.credparams) {
-println credparam
-        credentialsParam("\"${credparam.name}\"") {
-          defaultValue("\"${credparam.defaultValue}\"")
-          description("\"${credparam.description}\"")
+      parameters {
+        for(param in project.jobparams) {
+          "${param.type}"("\"${param.name}\"", "\"${param.defaultvalue}\"", "\"${param.description}\"")
+        }
+        for(credparam in project.credparams) {
+  println credparam
+          credentialsParam("\"${credparam.name}\"") {
+            defaultValue("\"${credparam.defaultValue}\"")
+            description("\"${credparam.description}\"")
+          }
         }
       }
     }
