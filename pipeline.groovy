@@ -11,20 +11,20 @@ for (project in veniceprojects.projects) {
     displayName("${project.foldername} pipelines")
   }
   for (repo in project.repos) {
-    pipelineJob("venice/${project.foldername}/${project.repos.name}-pipeline") {
-      description("${project.repos.name} pipeline")
+    pipelineJob("venice/${project.foldername}/${repo.name}-pipeline") {
+      description("${repo.name} pipeline")
       triggers {
         gitHubPushTrigger()
       }
       environmentVariables {
-        env('THREADFIX_ID', "${project.repos.threadfixId}")
+        env('THREADFIX_ID', "${repo.threadfixId}")
       }
       definition {
         cpsScm {
           scm {
             git {
               remote {
-                url("${gitprefix}${project.repos.name}")
+                url("${gitprefix}${repo.name}")
                 branch("*/master")
               }
             }
@@ -36,9 +36,8 @@ for (project in veniceprojects.projects) {
           "${param.type}"("\"${param.name}\"", "\"${param.defaultvalue}\"", "\"${param.description}\"")
         }
         for(credparam in project.credparams) {
-  println credparam
           credentialsParam("\"${credparam.name}\"") {
-            defaultValue("\"${credparam.defaultValue}\"")
+            defaultValue("\"${credparam.defaultvalue}\"")
             description("\"${credparam.description}\"")
           }
         }
